@@ -1,0 +1,10 @@
+class Comparator:
+    num1 = int(input("Choose any Number: "))
+    num2 = int(input("Choose Any Number: "))
+    
+    if num1 > num2:
+        print("The Higher Number is " + str(num1))
+    elif num1 < num2:
+        print("The Higher Number is " + str(num2))
+    else:
+        print("Invalid response")
