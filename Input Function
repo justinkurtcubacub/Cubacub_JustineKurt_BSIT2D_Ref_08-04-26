@@ -1,0 +1,24 @@
+total = 0
+inputs = []
+while True:
+user_input = input("Enter a number (or 'stop' to quit): ")
+if user_input.lower) == "stop":
+print("\nYou typed 'stop'. The progran is ending!")
+break
+try:
+number = int (user_input)
+inputs. append (number)
+# Reset if Zero
+if number == 0:
+total = 0
+print("You entered 0 - Total has been RESET to D. \n")
+elif number % 2 == 0:
+total += number
+print(f" (number) is Even - Added.")
+else:
+total -= number
+print (f"' (number) is Odd - Subtracted.")
+except ValueError:
+print("Invalid input! Please enter a number.")
+print ("InFinal total:", total)
+print ("All numbers you entered:", inputs)
