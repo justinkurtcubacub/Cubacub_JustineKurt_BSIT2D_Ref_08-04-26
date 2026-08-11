@@ -1,0 +1,63 @@
+items = []
+quantity = []
+print("=====Inventory System=====")
+while True:
+    print("1. Add Item")
+    print("2. Sell Item")
+    print("3. Restock Item")
+    print("4. View Inventory")
+    print("5. Exit")
+
+    userinput = int(input("Your Input: "))
+
+    if userinput == 1:
+        additem = input("What Item are you going to add? ").upper()
+        quantity1 = int(input("How many quantity you're going to Restock? "))
+        if quantity1 > 0 and additem not in items:
+            quantity.append(quantity1)
+            items.append(additem)
+            print("Successfully Restocked " + str(additem))
+            print("Successfully Restocked " + str(quantity1) +"x")
+        else:
+            print("Error")
+    elif userinput == 2:
+        if not items:
+            print("You Don't have stocks yet")
+        else:
+            sellitem = input("What Item are you gonna sell? ").upper()
+
+            if sellitem in items:
+                position = items.index(sellitem)
+
+                sellquantity = int(input("How many you will sell? "))
+
+                if sellquantity <= quantity[position] and sellquantity > 0:
+                    quantity[position] -= sellquantity
+                    print("You Successfully Sold your stocks " + str(sellquantity) + "x")
+                    print("Your Remaining Stock for " + str(items[position]) + " is " + str(quantity[position]))
+                else:
+                    print("Insufficient Stocks")
+            else:
+                print("Item not found")
+    elif userinput == 3:
+        restock = input("What Items are you gonna restock? ").upper()
+
+        if restock in items:
+            position2 = items.index(restock)
+
+            restockqty = int(input("How many are you gonna restock for " + str(items[position2]) + ": "))
+            if restockqty > 0:
+                quantity[position2] += restockqty
+                print("You Successfully Restocked " + str(restockqty) + "x")
+        else:
+            print("Item does not exist")
+    elif userinput == 4:
+        print("Your Stocks is: " + str(items))
+        print("Your Quantity is: " + str(quantity))
+    elif userinput == 5:
+        print("Goodbye Entrepreneur!")
+        break
+    else:
+        print("Invalid Inputs!")
+
+
