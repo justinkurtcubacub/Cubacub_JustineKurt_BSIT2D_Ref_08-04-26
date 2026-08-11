@@ -1,0 +1,43 @@
+balance = 0
+currently = 1000
+
+while True:
+    print("1. Check Balance")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("4. Check Money in your wallet")
+    print("\nMoney in your pocket is " + str(currently))
+    banker = int(input("Your Input: "))
+
+
+    if banker == 1:
+        Check = input("Your Current Balance is: " + str(balance))
+    # For deposit message
+    if banker == 2:
+        Deposit = int(input("how much you want to Deposit: "))
+        if Deposit <= currently:
+            currently -= Deposit
+            balance += Deposit
+            print("You Successfully Deposit " + str(currently))
+        else:
+            print("Insuficient Cash! " + " You're Trying to Deposit " + str(Deposit) + " while your Cash on hand is " + str(currently))
+    # For Withdraw message
+    if banker == 3:
+        withdraw = int(input("how much you want to withdraw: "))
+
+        if withdraw <= balance:
+            balance -= withdraw
+            currently += withdraw
+            print("You Successfully Withdraw " + str(currently))
+        else:
+            print("You're Trying to Withdraw that is beyond your budget" + " your cash in hand is " + str(currently))
+
+    if banker == 4:
+        print("Your Money in your pocket is: " + str(currently))
+
+    if banker == 0:
+        print("Thank you for using ATM")
+        break
+
+
+
