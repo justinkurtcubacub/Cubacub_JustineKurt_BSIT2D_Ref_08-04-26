@@ -1,0 +1,39 @@
+grades = []
+while True:
+    print("=====GRADE MANAGER=====")
+    print("1. Add Grade")
+    print("2. View Grade")
+    print("3. Show Avarage")
+    print("4. Clear Grades")
+    print("5. Exit")
+
+    userinput = int(input("Your Input: "))
+
+    if userinput == 1:
+        addgrade = float(input("Enter your Grade: "))
+        if addgrade >= 0 and addgrade <= 100:
+            grades.append(addgrade)
+            print("You added " + str(addgrade))
+        else:
+            print("You're Grades cannot exceed below 0 or over 100")
+
+    if userinput == 2:
+        print(grades)
+    if userinput == 3:
+        if len(grades) == 0:
+            print("You Don't submit grades yet")
+        else:
+            total1 = len(grades)
+            total = sum(grades) / total1
+            print("Your Grades: " + str(grades))
+            print(f"======== Your Avarage is  {total:.2f} ========" )
+    if userinput == 4:
+        confirm = input("are you sure you want to clear your grades? Y/N: ").upper()
+
+        if confirm == "Y":
+            grades.clear()
+        else:
+            print("Going Back to the main menu")
+    if userinput == 5:
+        print("Goodbye Student!")
+        break
