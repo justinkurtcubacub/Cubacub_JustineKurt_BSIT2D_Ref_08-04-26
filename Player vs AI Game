@@ -1,0 +1,66 @@
+import random
+
+player_hp = 100
+player_attack = 20
+player_potions = 3
+
+enemy_hp = 500
+enemy_attack = 15
+
+while True:
+    print("===Battle===")
+    print("Your HP: " + str(player_hp))
+    print("Enemy's HP: " + str(enemy_hp))
+    print("Potion: " + str(player_potions) + "\n")
+    print("1. Attack")
+    print("2. Use Potion")
+    print("3. Run")
+
+    userinput = int(input("Your Choice: "))
+
+    if userinput == 1:
+        enemyatk = random.randint(1, enemy_attack)
+        criticalhit = random.randint(30,50)
+        critchance = random.randint(1,2)
+        if critchance == 1:
+            enemy_hp -= criticalhit
+            print("You Dealt CRITICAL HIT!" + str(criticalhit) + " To the enemy" + "🔪")
+        else:
+            damage = random.randint(1, player_attack)
+            enemy_hp -= damage
+            print("You Dealt " + str(damage) + " to the enemy🩸")
+        if enemy_hp >= 1:
+            player_hp -= enemyatk
+            print("You Lose " + str(enemyatk) + " HP" + "🩸")
+
+
+
+    elif userinput == 2:
+        if player_potions >= 1:
+            if player_hp == 100:
+                print("You Exceed your maximum HP of 100")
+            else:
+                regen = random.randint(1, 20)
+                player_hp += regen
+                player_potions -= 1
+
+                if player_hp > 100:
+                    player_hp = 100
+                print("You've Regen " + str(regen) + "➕")
+        else:
+            print("You Don't Have Potions Left☹")
+
+    elif userinput == 3:
+        if random.randint(1,2) == 1:
+            print("You can't Run😓")
+        else:
+            print("You Successfully ran 🏃‍♀️")
+            break
+    if enemy_hp <= 0:
+        print("VICTORY🎉🎉")
+        break
+
+    if player_hp <= 0:
+        print("DEFEAT😭😭")
+        break
+# nilagyan ko ng emoji yung mga importanteng output para di nakakalito
