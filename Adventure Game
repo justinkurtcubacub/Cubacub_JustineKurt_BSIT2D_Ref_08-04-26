@@ -1,0 +1,221 @@
+# Patch v1.1
+import random
+
+Beach = False
+Lobby = False
+Cave = False
+actevent = True
+spevent = False
+
+
+# v1.1 update -- added caveman secret boss in cave
+player = ""
+playerhp = 100
+playeratk = 15
+
+cavemanhp = 100
+cavemanatk = 15
+caveman_alive = True
+
+print(" ==Walking Around Game==")
+print("1.Play")
+print("2.Exit")
+choice = int(input("Choose: "))
+
+
+if choice == 1:
+    Go = True
+    print("\n-Sending you to the character selection-\n")
+elif choice == 2:
+    print("Exiting the game")
+else:
+    print("Invalid input")
+
+if Go == True:
+    print("1.🐸")
+    print("2.🤡")
+    print("3.🐵")
+    character = int(input("choose a character: "))
+
+    if character == 1:
+        print("\nyou have selected: 🐸 frog")
+        print("\n---sending you to the lobby---")
+        player = "🐸"
+        Lobby = True
+    elif character == 2:
+        print("\nyou have selected: 🤡 clown")
+        print("---sending you to the lobby---")
+        player = "🤡"
+        Lobby = True
+    elif character == 3:
+        print("\nyou have selected: 🐵 nigga")
+        print("---sending you to the lobby---")
+        player = "🐵"
+        Lobby = True
+    else:
+        print("invalid")
+        character = int(input("choose a character: "))
+
+while Lobby == True:
+    Beach = False
+    Lobby = True
+    Cave = False
+    print("\nPlayer location: Lobby(" + str(player) + ") Beach(🔴)\nCave(🔴)")
+    print("1.Beach")
+    print("2.Cave")
+    print("3.Exit")
+    userinput = int(input("where would you want to go: "))
+    if userinput == 2:
+        Cave = True
+        Lobby = False
+        print("\n---walking to the cave---")
+    elif userinput == 1:
+        Beach = True
+        Lobby = False
+        print("\n---walking to the beach---")
+    elif userinput == 3:
+        print("\n---Ending the program---")
+        break
+    else:
+        print("invalid please try again!")
+        userinput = int(input("where would you want to go: "))
+
+    while Beach == True:
+        Beach = True
+        Lobby = False
+        Cave = False
+        print("\nPlayer location: Lobby(🔴) Beach(" + str(player) + ")\nCave(🔴)")
+        print("1.stay for a while")
+        print("2.Back to the lobby")
+        userinput = int(input("where would you want to go: "))
+
+        if userinput == 2:
+            Lobby = True
+            print("\n---Going back to the lobby---")
+            Beach = False
+            spevent = False
+            if actevent == False:
+                print("\n---you've missed the event---")
+
+
+        elif userinput == 1:
+            Beach = True
+            if spevent == False:
+                print("\n---enjoying the cold breeze---")
+                if actevent == True:
+                    event = random.randint(1, 4)
+                    if event == 1:
+                        print("\n ✨✨Special event activated✨✨ ")
+                        actevent = False
+                        spevent = True
+                    else:
+                        print("   nothing happen🍃...")
+            else:
+                print("~A random portal just appeared!~")
+                Lobby = False
+                Beach = False
+                Cave = False
+
+                while spevent == True:
+                    Lobby = False
+                    Beach = False
+                    Cave = False
+                    print("\n---warping to a new world---")
+                    print("\nPlayer location: Lobby(🔴) Beach(🔴) \nCave(🔴) Unknown(" + str(player) + ")")
+                    print("1.Explore the new world")
+                    print("2.Exit to the portal and leave the event")
+                    userinput = int(input("what would you do?: "))
+                    spevent = True
+                    actevent = False
+
+                    if userinput == 2:
+                        Beach = True
+                        spevent = False
+                        print("\n---going back to the beach---")
+                        print(" and the portal disappeared!")
+
+
+                    elif userinput == 1:
+                        print("going deeper to the unknown")
+        else:
+            print("invalid please try again!")
+            userinput = int(input("where would you want to go: "))
+
+    while Cave == True:
+        Beach = False
+        Lobby = False
+        Cave = True
+        print("\nPlayer location: Lobby(🔴) Beach(🔴)\nCave(" + str(player) + ")")
+        print("1.stay for a while")
+        print("2.back to the lobby")
+        userinput = int(input("where would you want to go: "))
+
+        if userinput == 2:
+            Cave = False
+            print("\n---Going back to the lobby---")
+            Lobby = True
+        elif userinput == 1:
+            if caveman_alive == True: # DITO NAG SISIMULA ANG v1.1 ------------------------------------------------
+                playerhp = 100
+                cavemanhp = 100
+                bosschance = random.randint(1,4)
+                if bosschance == 1:
+                    print("⚠WARNING! YOU'VE ENCOUNTER JOEY THE CAVEMAN⚠")
+                    print("Entering Combat")
+
+                    while caveman_alive == True:
+                        print("Your HP is " + str(playerhp))
+                        print("Caveman's HP is " + str(cavemanhp))
+                        print("1. Attack the Caveman⚔")
+                        print("2. Heal")
+                        print("3. Run")
+
+                        userdecision = int(input("Your Choice: "))
+
+                        if userdecision == 1:
+                            playerattack = random.randint(1, playeratk)
+                            cavemanhp -= playerattack
+                            print("You've Dealth " + str(playerattack) + " To the Caveman😂")
+                            if cavemanhp > 0:
+                                cavemanattack = random.randint(1, cavemanatk)
+                                playerhp -= cavemanattack
+                                print("You've Lose " + str(cavemanattack) + "Health😭" )
+                        if userdecision == 2:
+                            if playerhp < 100:
+                                Healing = random.randint(1, 50)
+                                playerhp += Healing
+                                cavemanattack = random.randint(1, cavemanatk)
+                                playerhp -= cavemanattack
+                                print(f"You've Healed {Healing} 💊 while losing {cavemanattack} HP🩸 to the caveman😫 ")
+                            if playerhp >= 100:
+                                playerhp = 100
+                                cavemanattack = random.randint(1, cavemanatk)
+                                playerhp -= cavemanattack
+                                print("You've reached your max HP of 100 you can't Heal more than that🙄")
+                                print("You Lose " +str(cavemanattack) +"HP "+ " while trying to heal😫")
+                        if userdecision == 3:
+                            runchance = random.randint(1,2)
+                            if runchance == 1:
+                                print("😍You've Successfully Ran😍")
+                                print("🚧GOING OUT OF COMBAT🚧")
+                                break
+                            else:
+                                cavemanattack = random.randint(1, cavemanatk)
+                                playerhp -= cavemanattack
+                                print("You can't run right now😭 you lose " + str(cavemanattack)+"hp " + "in the process")
+                        if playerhp <= 0:
+                            print("😭You Lose😭")
+                            print("🚧GOING OUT OF COMBAT🚧")
+                            break
+                        if cavemanhp <= 0:
+                            print("🏆You Win! 🏆 Caveman will no longer bother you anymore🏆")
+                            caveman_alive = False
+                            print("🚧GOING OUT OF COMBAT🚧")
+                            break
+            print("\n---staying for a minute---")
+                # HANGANG DITO v1.1 ------------------------------------------------
+        else:
+            print("invalid please try again!")
+            userinput = int(input("where would you want to go: "))
+
+# Collaboration with Jansen Nunag & Justine Kurt Cubacub
