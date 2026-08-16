@@ -48,7 +48,7 @@ if Go == True:
         player = "🤡"
         Lobby = True
     elif character == 3:
-        print("\nyou have selected: 🐵 nigga")
+        print("\nyou have selected: 🐵 monkey")
         print("---sending you to the lobby---")
         player = "🐵"
         Lobby = True
