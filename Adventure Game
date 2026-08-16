@@ -6,7 +6,7 @@ Lobby = False
 Cave = False
 actevent = True
 spevent = False
-
+Go = ""
 
 # v1.1 update -- added caveman secret boss in cave
 player = ""
