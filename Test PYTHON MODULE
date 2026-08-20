@@ -126,12 +126,12 @@ def trig_menu():
 def Hyperbolic():
     print_header("HYPERBOLIC FUNCTIONS")
     print(
-        " 1. Convert sin -> sihn \n 2. Convert cos -> acosh \n 3. Convert tanh -> atanh \n 0. Back to Main menu")
+        " 1. Convert sin -> Asihn \n 2. Convert cos -> Acosh \n 3. Convert tanh -> Atanh \n 0. Back to Main menu")
 
-    choice = get_int("What is your choice: ")
+    choice = get_int(" What is your choice: ")
 
     if choice == 1:
-        x = get_float("Type your Sin to convert it into sinh: ")
+        x = get_float("Type your Sin to convert it into Asinh: ")
         print(f"{x} -> {math.sinh(x)}")
     elif choice == 2 :
         x = get_float("Type your Cos to convert it into Acosh: ")
@@ -233,10 +233,15 @@ def General_Purpose_Functions():
 
 # Section 5
 def Randomize():
+
     print_header("RANDOM MODULE")
 
-    print("1. Generate a Random Number")
-    print("2. im outta here")
+    print("1. Set a Seed")
+    print("2. Generate a Number with randrange")
+    print("3. Generate a number with Randint")
+    print("4. Pick a Random item from a list with choice")
+    print("5. Draw Several Unique Items from a list ")
+    print("0. Exit Program")
 
     choice = get_int("Your Choices: ")
 
