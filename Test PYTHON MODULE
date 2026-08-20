@@ -1,0 +1,248 @@
+import math
+import random
+import sys
+import functools
+
+
+print(functools.partial(print,flush=True))
+# helper functions
+
+# Functions for Errors
+def get_float(prompt):
+    while True:
+        try:
+            print(prompt,end="", flush=True)
+            sys.stdout.flush()
+            return float(input())
+        except ValueError:
+            print("Invalid Input. Please type a number (e.g. 3,5).")
+        except EOFError:
+            print("\n No Input recieved. Exiting Program")
+            raise SystemExit
+
+def get_int(prompt):
+    while True:
+        try:
+            print(prompt,end="", flush=True)
+            sys.stdout.flush()
+            return int(input())
+        except ValueError:
+            print("Invalid Input. Please Type a number")
+        except EOFError:
+            print("\n No Input recieved. Exiting Program")
+            raise SystemExit
+
+def pause():
+    safe_input = ("\n Press ENTER to return to the menu...")
+
+def print_header(title):
+    print("\n" + "="  * 70)
+    print(f"{title}")
+    print("=" * 70)
+
+def safe_input(prompt):
+    try:
+        print(prompt, end="", flush=True)
+        sys.stdout.flush()
+        return input()
+    except ValueError:
+        print("No Input Recieved. Exiting Program")
+        raise SystemExit
+    except EOFError:
+        print("\n No Input Recieved. Exiting Program.")
+        raise SystemExit
+
+def mainmenu():
+    print("Select a Program")
+    print("1. Trig Menu")
+    print("2. Hyperbolic Menu")
+    print("3. Exponent")
+    print("4. General_Purpose_Functions")
+    print("5. Random Module")
+
+    choices = get_int("Your Choice: ")
+    if choices == 1:
+        trig_menu()
+    elif choices == 2:
+        Hyperbolic()
+    elif choices == 3:
+        exponent_menu()
+    elif choices == 4:
+        General_Purpose_Functions()
+    elif choices == 5:
+        Randomize()
+    else:
+        print("Invalid Input")
+# SECTION 1
+def trig_menu():
+    print_header("TRIGONOMETRIC (CIRCULAR) FUNCTIONS")
+    print(" 1. Show the Value of Pi\n 2. Convert Degrees -> radians \n 3. Convert Radians -> degrees \n 4. Compute Sin, Cos, Tan of an angle \n 5. Computer asin, acos, atan, of a value (-1 to 1 for asin/acos) \n 0. Back to Main menu")
+
+
+    choice = get_int("Enter your Choice: ")
+
+    if choice == 1:
+        print(f"\nMath.pi = {math.pi}")
+        return trig_menu()
+    elif choice == 2:
+        deg = get_float("Enter your angle in Degrees: ")
+        rad = math.radians(deg)
+        print(f"\n{deg} degrees = {rad} degrees")
+    elif choice == 3:
+        rad = get_float("Enter an Angles in degrees: ")
+        deg = math.radians(rad)
+        print(f"\n{rad} radians = {deg} degrees")
+    elif choice == 4:
+        deg = get_float("Enter an angles in degrees: ")
+        rad = math.radians(deg)
+        print(f"\nAngle = {deg} degrees ({rad} radians)")
+        print(f"Sin ({deg}) = {math.sin(rad)}")
+        print(f"Cos ({deg}) = {math.cos(rad)}")
+        print(f"Tan ({deg}) = {math.tan(rad)}")
+    elif choice == 5:
+        val = get_float("Enter a Value: ")
+        print()
+        try:
+            print(f"acos({val}) = {math.asin(val)} radians"
+                  f"(math.degrees{math.asin(val)} degrees ")
+
+        except ValueError:
+            print(f"asin(x) needs -1 <= x <=1. Skipped.")
+        try:
+            print(f"acos {val} = {math.asin(val)} radians")
+            print(f"math.degrees{math.acos(val)} degrees")
+        except ValueError:
+            print(f"acos (x) needs -1 <= x <=1. Skipped.")
+            print(f"atan {val} = {math.atan(val)} Radians")
+            print(f"math.degrees(math.atan{val} degrees")
+    elif choice == 0:
+        return mainmenu()
+    else:
+        print("\nInvalid Choice.")
+
+    pause()
+
+# Section 2
+def Hyperbolic():
+    print_header("HYPERBOLIC FUNCTIONS")
+    print(
+        " 1. Convert sin -> sihn \n 2. Convert cos -> acosh \n 3. Convert tanh -> atanh \n 0. Back to Main menu")
+
+    choice = get_int("What is your choice: ")
+
+    if choice == 1:
+        x = get_float("Type your Sin to convert it into sinh: ")
+        print(f"{x} -> {math.sinh(x)}")
+    elif choice == 2 :
+        x = get_float("Type your Cos to convert it into Acosh: ")
+        print(f"{x} -> {math.acosh(x)}")
+    elif choice == 3:
+        x = get_float("NOTE (must be > 0 and != 1) Type your Tanh to convert it into Atanh: ")
+        print(f"{x} -> {math.atanh(x)}")
+    elif choice == 0:
+        return mainmenu()
+    else:
+        print("Invalid Response")
+
+# SECTION 3
+def exponent_menu():
+    print_header("EXPONENTIATION AND LOGARITHMS FUNCTIONS")
+
+    print("1. Show the value of e")
+    print("2. Compute exp(x)")
+    print("3. Compute the natural log, log10, and log2 of a value")
+    print("4. Compute log(x, base) with a custom base")
+    print("5. Compute pow(x, y) - built-in vs math.pow")
+    print("0. Back to Main Menu")
+
+    choice = safe_input("Enter your choice: ")
+
+    if choice == "1":
+        print(f"\nmath.e = {math.e}")
+        return exponent_menu()
+
+    elif choice == "2":
+        x = get_float("Enter x: ")
+        print(f"\nexp({x}) = e^({x}) = {math.exp(x)}")
+
+    elif choice == "3":
+        x = get_float("Enter a positive number x: ")
+        try:
+            print(f"\nlog({x}) = {math.log(x)}")
+            print(f"\nlog10({x}) = {math.log10(x)}")
+            print(f"\nlog2({x}) = {math.log2(x)}")
+        except ValueError:
+            print("Logarithms require x > 0. Please try again.")
+
+    elif choice == "4":
+        x = get_float("Enter x (must be >0): ")
+        b = get_float("Enter the base b (must be > 0 and != 1): ")
+        try:
+            print(f"\nlog({x}, base {b}) = {math.log(x, b)}")
+        except (ValueError, ZeroDivisionError):
+            print("Invalid input for a logarithm with that base.")
+
+    elif choice == "5":
+        x = get_float("Enter the base x: ")
+        y = get_float("Enter the exponent y: ")
+
+        print(f"\nBuilt-in pow({x}, {y}) = {pow(x, y)}")
+        print(f"math.pow({x}, {y}) = {math.pow(x, y)}")
+
+        print(" (Note: pow() can return an int for integer inputs; "
+              "math.pow() always returns a float.)")
+
+    elif choice == "0":
+        return mainmenu()
+
+    else:
+        print("\nInvalid choice.")
+
+    pause()
+
+# Section 4
+def General_Purpose_Functions():
+    print_header("GENERAL PURPOSE FUNCTIONS")
+    print("1. Compute the Ceil,Floor and trunc of a value")
+    print("2. Compute a Factorial ")
+    print("3. Compute the Hypotenuse of a right triangle")
+    print("0. Back to Main Menu")
+
+    choice = get_int("What is your choice: ")
+
+    if choice == 1:
+        question = safe_input("What do you want to Compute? [CEIL, FLOOR, TRUNC]: ")
+
+        if question == "CEIL":
+            ceil = get_float("Give a Number you wish to Compute into CEIL: ")
+            ceil1 = math.ceil(ceil)
+            print(f"Your Number: {ceil} -> {ceil1}")
+        elif question == "FLOOR":
+            floor = get_float("Give a Number you wish to Compute into Floor: ")
+            floor1 = math.floor(floor)
+            print(f"Your Number: {floor} -> {floor1}")
+        elif question == "TRUNC":
+            trunc = get_float("Give a Number you wish to Compute into Trunc: ")
+            trunc1 = math.trunc(trunc)
+            print(f"Your Number: {trunc} -> {trunc1}")
+        else:
+            print("invalid input")
+
+    if choice == 0:
+        return mainmenu()
+
+# Section 5
+def Randomize():
+    print_header("RANDOM MODULE")
+
+    print("1. Generate a Random Number")
+    print("2. im outta here")
+
+    choice = get_int("Your Choices: ")
+
+    if choice == 1:
+        ran = random.randint(1, 100)
+        print(f"You generated: {ran}")
+mainmenu()
+
+# save for backup not the final product
