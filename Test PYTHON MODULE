@@ -3,11 +3,8 @@ import random
 import sys
 import functools
 
-
-print(functools.partial(print,flush=True))
+print(functools.partial(print,flush = True))
 # helper functions
-
-# Functions for Errors
 def get_float(prompt):
     while True:
         try:
@@ -53,13 +50,18 @@ def pause():
     safe_input("\nPress ENTER to return to the menu...")
     mainmenu()
 
+def returntoRandom():
+    safe_input("\nPress ENTER to return to the menu...")
+    Randomize()
+
+
 def mainmenu():
     print("Select a Program")
-    print("1. Trig Menu")
-    print("2. Hyperbolic Menu")
-    print("3. Exponent")
-    print("4. General_Purpose_Functions")
-    print("5. Random Module")
+    print("1. TRIGONOMETRIC FUNCTIONS")
+    print("2. HYPERBOLIC FUNCTIONS")
+    print("3. EXPONENTIATION AND LOGARITHMS FUNCTIONS")
+    print("4. GENERAL PURPOSE FUNCTIONS")
+    print("5. RANDOM MODULES")
 
     choices = get_int("Your Choice: ")
     if choices == 1:
@@ -76,7 +78,7 @@ def mainmenu():
         print("Invalid Input")
 
 
-# SECTION 1
+# SECTION 1 -----------------------------------------------------------------------------------------------------------------------------------------
 def trig_menu():
     print_header("TRIGONOMETRIC (CIRCULAR) FUNCTIONS")
     print(" 1. Show the Value of Pi\n 2. Convert Degrees -> radians \n 3. Convert Radians -> degrees \n 4. Compute Sin, Cos, Tan of an angle \n 5. Computer asin, acos, atan, of a value (-1 to 1 for asin/acos) \n 0. Back to Main menu")
@@ -121,7 +123,7 @@ def trig_menu():
         return mainmenu()
     pause()
 
-# Section 2
+# Section 2 -----------------------------------------------------------------------------------------------------------------------------------------
 def Hyperbolic():
     print_header("HYPERBOLIC FUNCTIONS")
     print(
@@ -148,7 +150,7 @@ def Hyperbolic():
         return mainmenu()
     pause()
 
-# SECTION 3
+# SECTION 3 -----------------------------------------------------------------------------------------------------------------------------------------
 def exponent_menu():
     print_header("EXPONENTIATION AND LOGARITHMS FUNCTIONS")
 
@@ -191,7 +193,6 @@ def exponent_menu():
 
         print(f"\nBuilt-in pow({x}, {y}) = {pow(x, y)}")
         print(f"math.pow({x}, {y}) = {math.pow(x, y)}")
-
         print(" (Note: pow() can return an int for integer inputs; "
               "math.pow() always returns a float.)")
 
@@ -199,7 +200,7 @@ def exponent_menu():
         return mainmenu()
     pause()
 
-# Section 4
+# Section 4 -----------------------------------------------------------------------------------------------------------------------------------------
 def General_Purpose_Functions():
     print_header("GENERAL PURPOSE FUNCTIONS")
     print("1. Compute the Ceil,Floor and trunc of a value")
@@ -224,8 +225,7 @@ def General_Purpose_Functions():
             trunc = get_float("Give a Number you wish to Compute into Trunc: ")
             trunc1 = math.trunc(trunc)
             print(f"Your Number: {trunc} -> {trunc1}")
-        else:
-            print("invalid input")
+        pause()
 
     elif choice == 2:
         question = get_int("Give a Number to compute into Factorial: ")
@@ -245,26 +245,36 @@ def General_Purpose_Functions():
         return mainmenu()
     pause()
 
-# Section 5
+# Section 5 -----------------------------------------------------------------------------------------------------------------------------------------
+seed_is_true = False
+seed_set = ""
+random.seed(seed_set)
 def Randomize():
     randomlist = ["🍅","🍇","🍈","🍉","🍊","🍌"]
-
-
+    global seed_is_true
+    global seed_set
     print_header("RANDOM MODULE")
-
     print("1. Set a Seed")
     print("2. Generate a Number with randrange")
     print("3. Generate a number with Randint")
     print("4. Pick a Random item from a list with choice")
     print("5. Draw Several Unique Items from a list ")
+    print("6. Reset Seed")
     print("0. Exit Program")
-
     choice = get_int("Your Choices: ")
-
     if choice == 1:
-        ran = random.randint(1, 100)
-        print(f"You generated: {ran}")
-    elif choice == 2:
+        if seed_is_true == False:
+            seed1 = get_int("Set a seed (any number): ")
+            checker = seed1
+            random.seed(seed1)
+            seed_set = checker
+            seed_is_true = True
+            print(f"You have succesfully set the seed to {seed1} ")
+        else:
+            print(f"You already set a Seed : {seed_set}")
+
+    if choice == 2:
+        random.seed(seed_set)
         ran = random.randrange(1,1000)
         print(f"You Generated: {ran}")
     elif choice == 3:
@@ -275,6 +285,23 @@ def Randomize():
         print(f"You Spinned: {spin}")
     elif choice == 5:
         print("PLACEHOLDER")
-    pause()
+    elif choice == 6:
+        if seed_is_true == True:
+            question = safe_input(f"Would you Reset your seed {seed_set}? YES OR NO ").upper()
+            if question == "YES":
+                seed_is_true = False
+                seed_set = ""
+                print("Seed Reset Successfully")
+            elif question == "NO":
+                print("Going Back")
+                Randomize()
+        else:
+            print("You Dont Have a Seed Yet")
+
+    elif choice == 0:
+        print("Placeholder")
+    returntoRandom()
+
+
 mainmenu()
 # save for backup not the final product!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
