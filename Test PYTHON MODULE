@@ -32,9 +32,6 @@ def get_int(prompt):
             print("\n No Input recieved. Exiting Program")
             raise SystemExit
 
-def pause():
-    safe_input = ("\n Press ENTER to return to the menu...")
-
 def print_header(title):
     print("\n" + "="  * 70)
     print(f"{title}")
@@ -51,6 +48,10 @@ def safe_input(prompt):
     except EOFError:
         print("\n No Input Recieved. Exiting Program.")
         raise SystemExit
+
+def pause():
+    safe_input("\nPress ENTER to return to the menu...")
+    mainmenu()
 
 def mainmenu():
     print("Select a Program")
@@ -73,6 +74,8 @@ def mainmenu():
         Randomize()
     else:
         print("Invalid Input")
+
+
 # SECTION 1
 def trig_menu():
     print_header("TRIGONOMETRIC (CIRCULAR) FUNCTIONS")
@@ -83,7 +86,6 @@ def trig_menu():
 
     if choice == 1:
         print(f"\nMath.pi = {math.pi}")
-        return trig_menu()
     elif choice == 2:
         deg = get_float("Enter your angle in Degrees: ")
         rad = math.radians(deg)
@@ -117,32 +119,34 @@ def trig_menu():
             print(f"math.degrees(math.atan{val} degrees")
     elif choice == 0:
         return mainmenu()
-    else:
-        print("\nInvalid Choice.")
-
     pause()
 
 # Section 2
 def Hyperbolic():
     print_header("HYPERBOLIC FUNCTIONS")
     print(
-        " 1. Convert sin -> Asihn \n 2. Convert cos -> Acosh \n 3. Convert tanh -> Atanh \n 0. Back to Main menu")
+        " 1. Convert x -> Sinh,Cosh,Tanh \n 2. Convert x -> Asinh,Acosh,Atanh \n 0. Back to Main menu")
 
     choice = get_int(" What is your choice: ")
 
     if choice == 1:
-        x = get_float("Type your Sin to convert it into Asinh: ")
-        print(f"{x} -> {math.sinh(x)}")
+        x = get_float("Type your x: ")
+        print(f"{x} -> \nSinh: {math.sinh(x)} \nCosh: {math.cosh(x)} \nTanh: {math.tanh(x)}")
     elif choice == 2 :
-        x = get_float("Type your Cos to convert it into Acosh: ")
-        print(f"{x} -> {math.acosh(x)}")
-    elif choice == 3:
-        x = get_float("NOTE (must be > 0 and != 1) Type your Tanh to convert it into Atanh: ")
-        print(f"{x} -> {math.atanh(x)}")
+        x = get_float("Type your x: ")
+        print(f"{x} -> \nAsinh: {math.asinh(x)}")
+        try:
+            print(f"Acosh: {math.acosh(x)}")
+        except ValueError:
+            print("Value must only be below 1 to get the Acosh")
+        try:
+            print(f"Atanh: {math.atanh(x)}")
+        except ValueError:
+            print("Number must be between -1 to 1 to get Atanh")
+
     elif choice == 0:
         return mainmenu()
-    else:
-        print("Invalid Response")
+    pause()
 
 # SECTION 3
 def exponent_menu():
@@ -159,7 +163,6 @@ def exponent_menu():
 
     if choice == "1":
         print(f"\nmath.e = {math.e}")
-        return exponent_menu()
 
     elif choice == "2":
         x = get_float("Enter x: ")
@@ -194,10 +197,6 @@ def exponent_menu():
 
     elif choice == "0":
         return mainmenu()
-
-    else:
-        print("\nInvalid choice.")
-
     pause()
 
 # Section 4
@@ -211,7 +210,7 @@ def General_Purpose_Functions():
     choice = get_int("What is your choice: ")
 
     if choice == 1:
-        question = safe_input("What do you want to Compute? [CEIL, FLOOR, TRUNC]: ")
+        question = safe_input("What do you want to Compute? [CEIL, FLOOR, TRUNC]: ").upper()
 
         if question == "CEIL":
             ceil = get_float("Give a Number you wish to Compute into CEIL: ")
@@ -228,11 +227,28 @@ def General_Purpose_Functions():
         else:
             print("invalid input")
 
-    if choice == 0:
+    elif choice == 2:
+        question = get_int("Give a Number to compute into Factorial: ")
+        x = math.factorial(question)
+        print(f"{question} -> {x}")
+
+    elif choice == 3:
+        question1 = get_int("Give the A angle: ")
+        question2 = get_int("Give the B angle: ")
+        a = question1
+        b = question2
+
+        hypotenuse = math.hypot(a,b)
+        print(f"Your A is {a} and your B is {b} -> {hypotenuse}")
+
+    elif choice == 0:
         return mainmenu()
+    pause()
 
 # Section 5
 def Randomize():
+    randomlist = ["🍅","🍇","🍈","🍉","🍊","🍌"]
+
 
     print_header("RANDOM MODULE")
 
@@ -248,6 +264,17 @@ def Randomize():
     if choice == 1:
         ran = random.randint(1, 100)
         print(f"You generated: {ran}")
+    elif choice == 2:
+        ran = random.randrange(1,1000)
+        print(f"You Generated: {ran}")
+    elif choice == 3:
+        ran = random.randint(1, 1000)
+        print(f"You Generated: {ran}")
+    elif choice == 4:
+        spin = random.choice(randomlist)
+        print(f"You Spinned: {spin}")
+    elif choice == 5:
+        print("PLACEHOLDER")
+    pause()
 mainmenu()
-
-# save for backup not the final product
+# save for backup not the final product!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
