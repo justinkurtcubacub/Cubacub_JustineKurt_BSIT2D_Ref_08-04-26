@@ -133,10 +133,10 @@ def Hyperbolic():
 
     if choice == 1:
         x = get_float("Type your x: ")
-        print(f"{x} -> \nSinh: {math.sinh(x)} \nCosh: {math.cosh(x)} \nTanh: {math.tanh(x)}")
+        print(f"Your Number:{x}  \nSinh: {math.sinh(x)} \nCosh: {math.cosh(x)} \nTanh: {math.tanh(x)}")
     elif choice == 2 :
         x = get_float("Type your x: ")
-        print(f"{x} -> \nAsinh: {math.asinh(x)}")
+        print(f"Your Number:{x}  \nAsinh: {math.asinh(x)}")
         try:
             print(f"Acosh: {math.acosh(x)}")
         except ValueError:
@@ -229,12 +229,15 @@ def General_Purpose_Functions():
 
     elif choice == 2:
         question = get_int("Give a Number to compute into Factorial: ")
-        x = math.factorial(question)
-        print(f"{question} -> {x}")
+        try:
+            print(f"Your Number: {question} -> {math.factorial(question)}")
+        except ValueError:
+            print("Computing into Factorial needs to be Positive Number ONLY!")
+            return General_Purpose_Functions()
 
     elif choice == 3:
-        question1 = get_int("Give the A angle: ")
-        question2 = get_int("Give the B angle: ")
+        question1 = get_float("Give the length of side A: ")
+        question2 = get_float("Give the length of side A: ")
         a = question1
         b = question2
 
@@ -249,10 +252,15 @@ def General_Purpose_Functions():
 seed_is_true = False
 seed_set = ""
 random.seed(seed_set)
+minimumchecker = 0
+list_is_empty = False
 def Randomize():
     randomlist = ["🍅","🍇","🍈","🍉","🍊","🍌"]
+    uniqueitem = []
     global seed_is_true
     global seed_set
+    global minimumchecker
+    global list_is_empty
     print_header("RANDOM MODULE")
     print("1. Set a Seed")
     print("2. Generate a Number with randrange")
@@ -270,24 +278,99 @@ def Randomize():
             seed_set = checker
             seed_is_true = True
             print(f"You have succesfully set the seed to {seed1} ")
+            Randomize()
         else:
             print(f"You already set a Seed : {seed_set}")
+            Randomize()
 
     if choice == 2:
-        random.seed(seed_set)
-        ran = random.randrange(1,1000)
-        print(f"You Generated: {ran}")
+        if seed_set == "":
+            print("NOTICE: No Seed Detected")
+            question1 = get_int("Pick a Starting Number: ")
+            question2 = get_int("Pick a Ending Number: ")
+            ran = random.randrange(question1, question2)
+            print(f"You Generated: {ran}")
+        else:
+            print(f"Your Seed is: {seed_set}")
+            random.seed(seed_set)
+            question1 = get_int("Pick a Starting Number: ")
+            question2 = get_int("Pick a Ending Number: ")
+            ran = random.randrange(question1, question2)
+            print(f"You Generated: {ran}")
     elif choice == 3:
-        ran = random.randint(1, 1000)
-        print(f"You Generated: {ran}")
+        if seed_set == "":
+            print("NOTICE: No Seed Detected")
+            question1 = get_int("Pick a Starting Number: ")
+            question2 = get_int("Pick a Ending Number: ")
+            ran = random.randint(question1, question2)
+            print(f"You Generated: {ran}")
+        else:
+            random.seed(seed_set)
+            question1 = get_int("Pick a Starting Number: ")
+            question2 = get_int("Pick a Ending Number: ")
+            ran = random.randint(question1, question2)
+            print(f"You Generated: {ran}")
     elif choice == 4:
-        spin = random.choice(randomlist)
-        print(f"You Spinned: {spin}")
+        if seed_set == "":
+            print("NOTICE: No Seed Detected")
+            print(f"The List are: {randomlist}")
+            while True:
+                question = safe_input("Press Enter to Spin (type stop to exit): ").upper()
+                fruitrandom = random.choice(randomlist)
+                print(f"You got: {fruitrandom}")
+                if question == "STOP":
+                    print("MACHINE STOPPED!")
+                    break
+        else:
+            random.seed(seed_set)
+            print(f"Your Seed is: {seed_set}")
+            print(f"The List are: {randomlist}")
+            while True:
+                fruitrandom = random.choice(randomlist)
+                print(f"You got: {fruitrandom}")
+                question = safe_input("Press Enter to Spin (type stop to exit): ").upper()
+                if question == "STOP":
+                    print("MACHINE STOPPED!")
+                    break
     elif choice == 5:
-        print("PLACEHOLDER")
+        if seed_set == "":
+            print("NOTICE: No Seed Detected")
+            while not minimumchecker >= 10 and list_is_empty == False:
+                Unique = safe_input("Enter any object MINIMUM OF 10: ")
+                uniqueitem.append(Unique)
+                minimumchecker += 1
+                print(f"You Added {Unique} to the list!")
+                print(f"Your list is currently: {uniqueitem}")
+
+        else:
+            random.seed(seed_set)
+            print(f"Your Seed is: {seed_set}")
+
+            while not minimumchecker >= 10 and list_is_empty == False:
+                Unique = safe_input("Enter any object MINIMUM OF 10: ")
+                uniqueitem.append(Unique)
+                minimumchecker += 1
+                print(f"You Added {Unique} to the list!")
+                print(f"Your list is currently: {uniqueitem}")
+
+        while True:
+            pick = get_int("Pick a number from 1 - 9: ")
+            if pick > 0 and pick < 10 :
+                result = random.sample(uniqueitem, pick)
+                print(f"You draw: {result}")
+            else:
+                print("Number must be between 1-9 only!")
+                continue
+            question = safe_input("Press Enter to Continue (type STOP to Exit)").upper()
+            if question == "STOP":
+                list_is_empty = False
+                minimumchecker = 0
+                Randomize()
+                print("GOING BACK TO MENU!")
+
     elif choice == 6:
         if seed_is_true == True:
-            question = safe_input(f"Would you Reset your seed {seed_set}? YES OR NO ").upper()
+            question = safe_input(f"Would you Reset your seed {seed_set}? YES OR NO: ").upper()
             if question == "YES":
                 seed_is_true = False
                 seed_set = ""
@@ -297,11 +380,11 @@ def Randomize():
                 Randomize()
         else:
             print("You Dont Have a Seed Yet")
+            Randomize()
 
     elif choice == 0:
-        print("Placeholder")
-    returntoRandom()
+        return mainmenu()
+    pause()
 
 
 mainmenu()
-# save for backup not the final product!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
